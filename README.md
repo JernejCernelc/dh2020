@@ -1,5 +1,5 @@
-# dh2020
-Super hack
+# DragonHack 2020
+One last time 😢
 
 
 ## Set up and run Backend
