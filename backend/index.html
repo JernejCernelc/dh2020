@@ -2,6 +2,8 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
 </head>
 
 <body>
@@ -107,8 +109,169 @@
         </div>
 
         <div class="graphs">
-            tukaj pridejo grafi
-        </div>
+            <script>
+	let hoveredNews = null;
 
+function preload() {
+	//loadJSON('data.json');
+  data = {
+    "topic": "covid-19",
+    "dates": [{
+            "datetime": "07/11/2020",
+            "news": [{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.4
+                }, {
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.9
+                }
+            ]
+        }, {
+            "datetime": "08/11/2020",
+            "news": [{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.12
+                }
+            ]
+        }, {
+            "datetime": "09/11/2020",
+            "news": [{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.22
+                },
+				{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.26
+                },
+				{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
+                    "value": 0.25
+                }
+            ]
+        }, {
+            "datetime": "10/11/2020",
+            "news": [{
+                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
+                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
+                    "link": "https://jsonformatter.curiousconcept.com/#",
+                    "value": 0.42
+                }
+            ]
+        }
+    ]
+}
+}
+
+function setup() {
+  createCanvas(800, 300);
+  xAxisY = height - 40;
+  colWidth = 0.4;
+  strokeW = 2;
+
+  columnColor = "rgba(242, 100, 25, 0.7)";
+  columnColorBorder = "rgba(242, 100, 25, 1.0)";
+  columnColorSelected = "rgba(242, 100, 25, 0.8)";
+  columnCornerAngle = 1;
+  
+  backgroundColor = "rgba(51, 101, 138, 1)";
+  textColor = 255;
+
+  chartColour = "rgba(47, 72, 88, 1)";
+  chartColourVertical = "rgba(47, 72, 88, 0.3)";
+}
+
+function draw() {
+  background(backgroundColor);
+  strokeWeight(strokeW);
+  stroke(chartColour);
+  strokeCap(ROUND);
+  fill(chartColour)
+
+  var dates = data["dates"];
+  var numberOfNews = 0;
+  for (i = 0; i < dates.length; i++) {
+    numberOfNews += dates[i]["news"].length;
+  }
+  var start = 0;
+  let hovered = false;
+  for (i = 0; i < dates.length; i++) {
+
+    //vertical lines
+    let cellWidth = width * (dates[i]["news"].length / numberOfNews)
+    let end = start + cellWidth;
+    strokeWeight(0.5);
+    stroke(textColor);
+    fill(textColor);
+    textAlign(CENTER);
+    text(dates[i]["datetime"], start + cellWidth / 2, xAxisY + 20);
+    strokeWeight(strokeW);
+     stroke(chartColour);
+    fill(chartColour)
+
+    if (i < dates.length - 1) {
+      stroke(chartColourVertical);
+      line(end, height - 10, end, 5);
+      stroke(chartColour);
+    }
+
+    var columnWidth = (width / numberOfNews) * colWidth;
+    var numberOfColumns = dates[i]["news"].length;
+
+    //draw data
+    for (j = 0; j < dates[i]["news"].length; j++) {
+      let news = dates[i]["news"][j];
+      let value = news["value"];
+      let title = news["title"];
+
+      value = map(value, 0, 1, 0, xAxisY);
+      let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
+
+      hovered = drawRect(colX, xAxisY, columnWidth, -value, news) || hovered;
+    }
+
+    start = end;
+  }
+  if(!hovered) {
+    hoveredNews = null;
+  }
+  line(5, xAxisY, width - 5, xAxisY);
+}
+
+function drawRect(x1, y1, width, height, news) {
+  let hovered = false;
+  if ((x1 < mouseX) && (x1 + width > mouseX) && (y1 > mouseY) && (y1 + height < mouseY)) {
+    fill(columnColorSelected)
+    hoveredNews = news;
+    hovered = true;
+  } else {
+    fill(columnColor);
+    hovered = false;
+  }
+  stroke(columnColorBorder);
+  rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
+  stroke(chartColour);
+  fill(chartColour);
+  return hovered; 
+}
+
+function mouseClicked() {
+  if(hoveredNews !== null) {
+      window.open(hoveredNews["link"], '_blank');
+  }
+}
+	</script>
+        </div>
     </div>
 </body>
