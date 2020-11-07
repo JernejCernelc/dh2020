@@ -3,6 +3,8 @@ import os
 import time
 import datetime
 
+DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
 
 def load_data(path):
     """ Load data, however it might be stored (change this accordingly). """
@@ -18,7 +20,7 @@ def ngrams(s, n=3):
 
 def extract_scores(data):
     # Earliest to latest
-    data_chronologically = sorted(data, key=lambda curr_article: time.mktime(datetime.datetime.strptime(curr_article['date'], "%d/%m/%Y %H:%M:%S").timetuple()))
+    data_chronologically = sorted(data, key=lambda curr_article: time.mktime(datetime.datetime.strptime(curr_article['date'], DATE_FORMAT).timetuple()))
     article_scores = []
 
     for i, curr_instance in enumerate(data_chronologically):
@@ -28,7 +30,7 @@ def extract_scores(data):
             continue
 
         curr_title = curr_instance["title"]
-        curr_time = time.mktime(datetime.datetime.strptime(curr_instance['date'], "%d/%m/%Y %H:%M:%S").timetuple())
+        curr_time = time.mktime(datetime.datetime.strptime(curr_instance['date'], DATE_FORMAT).timetuple())
         curr_ngrams = ngrams(curr_title.lower(), n=3)
         curr_uniq_ngrams = set(curr_ngrams)
 
@@ -37,7 +39,7 @@ def extract_scores(data):
         for idx_prev in range(i):
             other_instance = data_chronologically[idx_prev]
             other_title = other_instance["title"]
-            other_time = time.mktime(datetime.datetime.strptime(other_instance['date'], "%d/%m/%Y %H:%M:%S").timetuple())
+            other_time = time.mktime(datetime.datetime.strptime(other_instance['date'], DATE_FORMAT).timetuple())
 
             if other_time < curr_time - OBSERVED_PERIOD_S:
                 continue
