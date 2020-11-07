@@ -19,6 +19,7 @@
   "homepage": "https://github.com/JernejCernelc/dh2020#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "lodash": "^4.17.20",
     "path": "^0.12.7",
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0"
