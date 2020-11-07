@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
 </head>
@@ -46,7 +46,7 @@
       width: 100%;
       height: 80px;
       background-color: #2F4858;
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Merriweather', sans-serif;
       color: white;
       font-size: 48px;
       font-weight: 700;
@@ -70,21 +70,62 @@
 
     .description {
       margin: 55px 150px;
-      display: flex;
+      display: inline-block;
       height: 200px;
       align-items: center;
       text-align: center;
-      font-size: 20px;
-      font-family: 'Quicksand', sans-serif;
+      font-size: 1em;
+      font-family: 'Merriweather', sans-serif;
       color: white;
       line-height: 30px;
     }
 
     .graphs {
-      margin: 55px 150px;
+      margin: 0px 150px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       align-self: center;
+    }
+
+    .article-details {
+      margin: 0 60px;
+      font-family: 'Merriweather', sans-serif;
+      color: white;
+    }
+
+    .article-details #hovered-article {
+      font-size: 1.3em;
+      margin-bottom: 8px;
+      text-decoration: underline;
+    }
+
+    .article-details #hovered-article-content {
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    .article-details #hovered-article-link{
+      text-align: right;
+    }
+
+    .article-details #hovered-article-link > a {
+      color: rgb(242, 100, 25);
+    }
+
+    .topic-label-container {
+      margin-left: 60px;
+      font-family: 'Merriweather', sans-serif;
+    }
+
+    .topic-label-container > span {
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: white;
+      background-color: #2F4858;
     }
   </style>
 
@@ -105,15 +146,24 @@
   <div class="content">
 
     <div class="description">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-      ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-      nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-      anim id est laborum.
+      <b>News meter</b> lets you discover news from a different perspective.
+      <br />
+      <br />
+      Explore how trending topics change through time and only read the news that are significantly different,
+      indicating, there is some change or new information.
+      <br />
+      <br />
+      Save your time and energy, but stay on top of relevant topics of yesterday, today and tomorrow!
     </div>
 
+    <div class="topic-label-container"><span id="topic-label">...</span></div>
     <div class="graphs" id="canvas-holder">
 
+    </div>
+    <div class="article-details">
+      <div id="hovered-article"></div>
+      <div id="hovered-article-content"></div>
+      <div id="hovered-article-link"></div>
     </div>
   </div>
 
@@ -125,12 +175,11 @@
     let data = undefined;
 
     async function preload() {
-      console.log("Hello!");
-
       try {
-        const response = await axios.get('/timeline/covid-19');
+        const response = await axios.get('/timeline/us-election-20');
         console.log(response);
         data = response.data;
+        document.getElementById("topic-label").innerHTML = response.data.topic;
       } catch (error) {
         console.error(error);
       }
@@ -186,7 +235,7 @@
         text(dates[i]["datetime"], start + cellWidth / 2, xAxisY + 20);
         strokeWeight(strokeW);
         stroke(chartColour);
-        fill(chartColour)
+        fill(chartColour);
 
         if (i < dates.length - 1) {
           stroke(chartColourVertical);
@@ -205,6 +254,16 @@
 
           value = map(value, 0, 1, 0, xAxisY);
           let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
+
+          if (news["score"] > 0.5) {
+            strokeWeight(0.5);
+            stroke(textColor);
+            fill(textColor);
+            text(news["title"].substring(0, 36) + "...", colX, xAxisY - value - 6); // <--
+            stroke(chartColour);
+            fill(chartColour);
+            strokeWeight(strokeW);
+          }
 
           hovered = drawRect(colX, xAxisY, columnWidth, -value, news) || hovered;
         }
@@ -234,9 +293,19 @@
       return hovered;
     }
 
+    function mouseMoved() {
+      // nothing
+    }
+
     function mouseClicked() {
       if (hoveredNews !== null) {
-        window.open(hoveredNews["link"], '_blank');
+        document.getElementById("hovered-article").innerHTML = hoveredNews["title"];
+        document.getElementById("hovered-article-content").innerHTML = hoveredNews["content"].substring(0, 280) + "...";
+        document.getElementById("hovered-article-link").innerHTML = "Vir: <a target='_blank' href='" + hoveredNews["link"] +"'>" + hoveredNews["link"].split("/")[2] + "</a>";
+      } else {
+        /*document.getElementById("hovered-article").innerHTML = "...";
+        document.getElementById("hovered-article-content").innerHTML = "...";
+        document.getElementById("hovered-article-link").innerHTML = "";*/
       }
     }
   </script>
