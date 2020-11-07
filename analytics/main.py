@@ -62,6 +62,6 @@ if __name__ == "__main__":
     OBSERVED_PERIOD_S = 3 * 24 * 60 * 60
 
     # Unprocessed (raw) data
-    data_path = os.environ.get("NEWS_DATA_PATH", "/home/matej/Desktop/hardcoded_news.json")
+    data_path = os.environ.get("NEWS_DATA_PATH", "../data/covid-19.json")
     articles = load_data(data_path)
     articles = extract_scores(articles)
