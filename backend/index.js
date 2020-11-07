@@ -19,11 +19,11 @@ async function initDb() {
 
     /* model definition */
     NewsArticle.init({
-        title: { type: DataTypes.STRING, allowNull: false },
-        content: { type: DataTypes.STRING, allowNull: true },
-        topic: { type: DataTypes.STRING, allowNull: false },
+        title: { type: DataTypes.TEXT, allowNull: false },
+        content: { type: DataTypes.TEXT, allowNull: true },
+        topic: { type: DataTypes.TEXT, allowNull: false },
         datetime: { type: DataTypes.DATE, allowNull: false },
-        link: { type: DataTypes.STRING, allowNull: false },
+        link: { type: DataTypes.TEXT, allowNull: false, unique: true },
         score: { type: DataTypes.FLOAT },
     }, {
         sequelize,
