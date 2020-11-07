@@ -1,4 +1,114 @@
-<h1>EEEEE</h1>
-<p>
-Makarena
-</p>
+<!DOCTYPE html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Style for whole page -->
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-top {
+            width: 100%;
+            height: 369px;
+            background:
+                linear-gradient(135deg, white 25%, transparent 25%) -50px 0,
+                linear-gradient(225deg, white 25%, transparent 25%) -50px 0,
+                linear-gradient(315deg, white 25%, transparent 25%),
+                linear-gradient(45deg, white 25%, transparent 25%);
+            background-size: 2em 2em;
+            background-color: #86bbd8;
+        }
+
+        .background-bottom {
+            width: 100%;
+            height: 100%;
+            background-color: #86bbd8;
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 80px;
+            background-color: #2F4858;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
+        }
+
+        .content {
+            height: 1500px;
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            background-color: #33658A;
+            margin: 0 auto;
+            -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
+            box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
+        }
+
+        .description {
+            margin: 55px 150px;
+            display: flex;
+            height: 200px;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            line-height: 30px;
+        }
+
+        .graphs {
+            margin: 55px 150px;
+            display: flex;
+            align-items: center;
+            align-self: center;
+        }
+    </style>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="background-top">
+        </div>
+        <div class="background-bottom">
+        </div>
+    </div>
+
+    <!-- Header banned -->
+    <div class="header-banner">
+        News meter
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <div class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+        </div>
+
+        <div class="graphs">
+            tukaj pridejo grafi
+        </div>
+
+    </div>
+</body>
