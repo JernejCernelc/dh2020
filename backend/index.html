@@ -1,277 +1,245 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
 </head>
 
 <body>
-    <!-- Style for whole page -->
-    <style>
-        body {
-            margin: 0px;
-        }
+  <!-- Style for whole page -->
+  <style>
+    body {
+      margin: 0px;
+    }
 
-        .background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    body, html {
+      height: 100%;
+    }
 
-        .background-top {
-            width: 100%;
-            height: 369px;
-            background:
-                linear-gradient(135deg, white 25%, transparent 25%) -50px 0,
-                linear-gradient(225deg, white 25%, transparent 25%) -50px 0,
-                linear-gradient(315deg, white 25%, transparent 25%),
-                linear-gradient(45deg, white 25%, transparent 25%);
-            background-size: 2em 2em;
-            background-color: #86bbd8;
-        }
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-        .background-bottom {
-            width: 100%;
-            height: 100%;
-            background-color: #86bbd8;
-        }
+    .background-top {
+      width: 100%;
+      height: 369px;
+      background:
+      linear-gradient(135deg, white 25%, transparent 25%) -50px 0,
+      linear-gradient(225deg, white 25%, transparent 25%) -50px 0,
+      linear-gradient(315deg, white 25%, transparent 25%),
+      linear-gradient(45deg, white 25%, transparent 25%);
+      background-size: 2em 2em;
+      background-color: #86bbd8;
+    }
 
-        .header-banner {
-            width: 100%;
-            height: 80px;
-            background-color: #2F4858;
-            font-family: 'Quicksand', sans-serif;
-            color: white;
-            font-size: 48px;
-            font-weight: 700;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            -webkit-box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
-            box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
-        }
+    .background-bottom {
+      width: 100%;
+      height: calc(100% - 369px);
+      background-color: #86bbd8;
+    }
 
-        .content {
-            height: 1500px;
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            background-color: #33658A;
-            margin: 0 auto;
-            -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
-            box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
-        }
+    .header-banner {
+      width: 100%;
+      height: 80px;
+      background-color: #2F4858;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      font-size: 48px;
+      font-weight: 700;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      -webkit-box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 8px 8px -3px rgba(0, 0, 0, 0.7);
+    }
 
-        .description {
-            margin: 55px 150px;
-            display: flex;
-            height: 200px;
-            align-items: center;
-            text-align: center;
-            font-size: 20px;
-            font-family: 'Quicksand', sans-serif;
-            color: white;
-            line-height: 30px;
-        }
+    .content {
+      height: calc(100% - 80px);
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      background-color: #33658A;
+      margin: 0 auto;
+      -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
+      box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 0px 0px 8px 10px rgba(0, 0, 0, 0);
+    }
 
-        .graphs {
-            margin: 55px 150px;
-            display: flex;
-            align-items: center;
-            align-self: center;
-        }
-    </style>
+    .description {
+      margin: 55px 150px;
+      display: flex;
+      height: 200px;
+      align-items: center;
+      text-align: center;
+      font-size: 20px;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      line-height: 30px;
+    }
 
-    <!-- Background -->
-    <div class="background">
-        <div class="background-top">
-        </div>
-        <div class="background-bottom">
-        </div>
+    .graphs {
+      margin: 55px 150px;
+      display: flex;
+      align-items: center;
+      align-self: center;
+    }
+  </style>
+
+  <!-- Background -->
+  <div class="background">
+    <div class="background-top">
+    </div>
+    <div class="background-bottom">
+    </div>
+  </div>
+
+  <!-- Header banned -->
+  <div class="header-banner">
+    News meter
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <div class="description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+      ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+      nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+      anim id est laborum.
     </div>
 
-    <!-- Header banned -->
-    <div class="header-banner">
-        News meter
+    <div class="graphs" id="canvas-holder">
+
     </div>
+  </div>
 
-    <!-- Content -->
-    <div class="content">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-        </div>
+  <script>
+    let hoveredNews = null;
+    let loaded = false;
+    let data = undefined;
 
-        <div class="graphs">
-            <script>
-	let hoveredNews = null;
+    async function preload() {
+      console.log("Hello!");
 
-function preload() {
-	//loadJSON('data.json');
-  data = {
-    "topic": "covid-19",
-    "dates": [{
-            "datetime": "07/11/2020",
-            "news": [{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.4
-                }, {
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.9
-                }
-            ]
-        }, {
-            "datetime": "08/11/2020",
-            "news": [{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.12
-                }
-            ]
-        }, {
-            "datetime": "09/11/2020",
-            "news": [{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.22
-                },
-				{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.26
-                },
-				{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://www.nadlani.si/novice/najbolj-crn-dan-od-zacetka-epidemije-stevilo-umrlih-preseglo-500/",
-                    "value": 0.25
-                }
-            ]
-        }, {
-            "datetime": "10/11/2020",
-            "news": [{
-                    "title": "Najbolj črn dan od začetka epidemije! Število umrlih preseglo 500",
-                    "content": "V petek so v Sloveniji opravili 6340 testov in potrdili 1612 okužb z novim koronavirusom. Umrlo je doslej največ bolnikov na dan, to je 34. V bolnišnicah se je zdravilo 1084 covidnih bolnikov, med njimi 178 na oddelkih za intenzivno nego, kar je deset več kot dan prej. Iz bolnišnic so v petek odpustili 93 bolnikov, je vlada objavila na Twitterju.",
-                    "link": "https://jsonformatter.curiousconcept.com/#",
-                    "value": 0.42
-                }
-            ]
-        }
-    ]
-}
-}
+      try {
+        const response = await axios.get('/timeline/covid-19');
+        console.log(response);
+        data = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+      loaded = true;
+    }
 
-function setup() {
-  createCanvas(800, 300);
-  xAxisY = height - 40;
-  colWidth = 0.4;
-  strokeW = 2;
+    function setup() {
+      let canvas = createCanvas(800, 300);
+      canvas.parent('canvas-holder');
 
-  columnColor = "rgba(242, 100, 25, 0.7)";
-  columnColorBorder = "rgba(242, 100, 25, 1.0)";
-  columnColorSelected = "rgba(242, 100, 25, 0.8)";
-  columnCornerAngle = 1;
-  
-  backgroundColor = "rgba(51, 101, 138, 1)";
-  textColor = 255;
+      xAxisY = height - 40;
+      colWidth = 0.4;
+      strokeW = 2;
 
-  chartColour = "rgba(47, 72, 88, 1)";
-  chartColourVertical = "rgba(47, 72, 88, 0.3)";
-}
+      columnColor = "rgba(242, 100, 25, 0.7)";
+      columnColorBorder = "rgba(242, 100, 25, 1.0)";
+      columnColorSelected = "rgba(242, 100, 25, 0.8)";
+      columnCornerAngle = 1;
 
-function draw() {
-  background(backgroundColor);
-  strokeWeight(strokeW);
-  stroke(chartColour);
-  strokeCap(ROUND);
-  fill(chartColour)
+      backgroundColor = "rgba(51, 101, 138, 1)";
+      textColor = 255;
 
-  var dates = data["dates"];
-  var numberOfNews = 0;
-  for (i = 0; i < dates.length; i++) {
-    numberOfNews += dates[i]["news"].length;
-  }
-  var start = 0;
-  let hovered = false;
-  for (i = 0; i < dates.length; i++) {
+      chartColour = "rgba(47, 72, 88, 1)";
+      chartColourVertical = "rgba(47, 72, 88, 0.3)";
+    }
 
-    //vertical lines
-    let cellWidth = width * (dates[i]["news"].length / numberOfNews)
-    let end = start + cellWidth;
-    strokeWeight(0.5);
-    stroke(textColor);
-    fill(textColor);
-    textAlign(CENTER);
-    text(dates[i]["datetime"], start + cellWidth / 2, xAxisY + 20);
-    strokeWeight(strokeW);
-     stroke(chartColour);
-    fill(chartColour)
-
-    if (i < dates.length - 1) {
-      stroke(chartColourVertical);
-      line(end, height - 10, end, 5);
+    function draw() {
+      if (!loaded) {
+        return; // LOADING BAR???
+      }
+      background(backgroundColor);
+      strokeWeight(strokeW);
       stroke(chartColour);
+      strokeCap(ROUND);
+      fill(chartColour)
+
+      var dates = data["dates"];
+      var numberOfNews = 0;
+      for (i = 0; i < dates.length; i++) {
+        numberOfNews += dates[i]["news"].length;
+      }
+      var start = 0;
+      let hovered = false;
+      for (i = 0; i < dates.length; i++) {
+
+        //vertical lines
+        let cellWidth = width * (dates[i]["news"].length / numberOfNews)
+        let end = start + cellWidth;
+        strokeWeight(0.5);
+        stroke(textColor);
+        fill(textColor);
+        textAlign(CENTER);
+        text(dates[i]["datetime"], start + cellWidth / 2, xAxisY + 20);
+        strokeWeight(strokeW);
+        stroke(chartColour);
+        fill(chartColour)
+
+        if (i < dates.length - 1) {
+          stroke(chartColourVertical);
+          line(end, height - 10, end, 5);
+          stroke(chartColour);
+        }
+
+        var columnWidth = (width / numberOfNews) * colWidth;
+        var numberOfColumns = dates[i]["news"].length;
+
+        //draw data
+        for (j = 0; j < dates[i]["news"].length; j++) {
+          let news = dates[i]["news"][j];
+          let value = news["score"];
+          let title = news["title"];
+
+          value = map(value, 0, 1, 0, xAxisY);
+          let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
+
+          hovered = drawRect(colX, xAxisY, columnWidth, -value, news) || hovered;
+        }
+
+        start = end;
+      }
+      if (!hovered) {
+        hoveredNews = null;
+      }
+      line(5, xAxisY, width - 5, xAxisY);
     }
 
-    var columnWidth = (width / numberOfNews) * colWidth;
-    var numberOfColumns = dates[i]["news"].length;
-
-    //draw data
-    for (j = 0; j < dates[i]["news"].length; j++) {
-      let news = dates[i]["news"][j];
-      let value = news["value"];
-      let title = news["title"];
-
-      value = map(value, 0, 1, 0, xAxisY);
-      let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
-
-      hovered = drawRect(colX, xAxisY, columnWidth, -value, news) || hovered;
+    function drawRect(x1, y1, width, height, news) {
+      let hovered = false;
+      if ((x1 < mouseX) && (x1 + width > mouseX) && (y1 > mouseY) && (y1 + height < mouseY)) {
+        fill(columnColorSelected)
+        hoveredNews = news;
+        hovered = true;
+      } else {
+        fill(columnColor);
+        hovered = false;
+      }
+      stroke(columnColorBorder);
+      rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
+      stroke(chartColour);
+      fill(chartColour);
+      return hovered;
     }
 
-    start = end;
-  }
-  if(!hovered) {
-    hoveredNews = null;
-  }
-  line(5, xAxisY, width - 5, xAxisY);
-}
+    function mouseClicked() {
+      if (hoveredNews !== null) {
+        window.open(hoveredNews["link"], '_blank');
+      }
+    }
+  </script>
 
-function drawRect(x1, y1, width, height, news) {
-  let hovered = false;
-  if ((x1 < mouseX) && (x1 + width > mouseX) && (y1 > mouseY) && (y1 + height < mouseY)) {
-    fill(columnColorSelected)
-    hoveredNews = news;
-    hovered = true;
-  } else {
-    fill(columnColor);
-    hovered = false;
-  }
-  stroke(columnColorBorder);
-  rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
-  stroke(chartColour);
-  fill(chartColour);
-  return hovered; 
-}
-
-function mouseClicked() {
-  if(hoveredNews !== null) {
-      window.open(hoveredNews["link"], '_blank');
-  }
-}
-	</script>
-        </div>
-    </div>
 </body>
+</html>
