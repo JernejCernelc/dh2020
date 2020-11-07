@@ -20,9 +20,11 @@ async function initDb() {
   /* model definition */
   NewsArticle.init({
     title: { type: DataTypes.STRING, allowNull: false },
+    content: { type: DataTypes.STRING, allowNull: true },
     topic: { type: DataTypes.STRING, allowNull: false },
-    datetime: { type: DataTypes.STRING, allowNull: false },
+    datetime: { type: DataTypes.DATE, allowNull: false },
     link: { type: DataTypes.STRING, allowNull: false },
+    score: { type: DataTypes.FLOAT },
   }, {
     sequelize,
     timestamps: false,
@@ -30,49 +32,8 @@ async function initDb() {
   });
 
   /* sync model to db */
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   console.log("All models were synchronized successfully.");
-
-
-  /* some dummy data */
-  await NewsArticle.create({
-    title: "Very cool title 1",
-    topic: "covid-19",
-    datetime: "07/11/2020 15:00",
-    link: "https://example.com/",
-  });
-  await NewsArticle.create({
-    title: "Very cool title 2",
-    topic: "covid-19",
-    datetime: "07/11/2020 15:00",
-    link: "https://example.com/",
-  });
-  await NewsArticle.create({
-    title: "Very cool title 3",
-    topic: "covid-19",
-    datetime: "08/11/2020 15:00",
-    link: "https://example.com/",
-  });
-
-  await NewsArticle.create({
-    title: "Biden",
-    topic: "volitve zda",
-    datetime: "07/11/2020 15:00",
-    link: "https://example.com/",
-  });
-  await NewsArticle.create({
-    title: "Biden",
-    topic: "volitve zda",
-    datetime: "07/11/2020 15:00",
-    link: "https://example.com/",
-  });
-  await NewsArticle.create({
-    title: "Biden",
-    topic: "volitve zda",
-    datetime: "07/11/2020 15:00",
-    link: "https://example.com/",
-  });
-
 
 }
 

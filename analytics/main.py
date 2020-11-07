@@ -56,12 +56,29 @@ def extract_scores(data):
 
     return data
 
+def store_scores(articles, topic):
+    # create db connection and create table if it doesnt exist yet
+    import sqlite3
+    conn = sqlite3.connect('../data/news.db')
+    conn.execute('''CREATE TABLE IF NOT EXISTS `news_article` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` VARCHAR(255) NOT NULL, `content` VARCHAR(255), `topic` VARCHAR(255) NOT NULL, `datetime` DATETIME NOT NULL, `link` VARCHAR(255) NOT NULL, `score` FLOAT)''')
+
+    # insert articles into table
+    for article in articles:
+        conn.execute("INSERT INTO news_article (title, content, topic, datetime, link, score) VALUES (?, ?, ?, ?, ?, ?)",
+                     (article['title'], article['content'], topic, article['date'], article['link'], article['score']))
+    conn.commit()
+
 
 if __name__ == "__main__":
     # How far back are we looking for exclusiveness of articles?
     OBSERVED_PERIOD_S = 3 * 24 * 60 * 60
 
+    topic = "covid-19"
+
     # Unprocessed (raw) data
-    data_path = os.environ.get("NEWS_DATA_PATH", "../data/covid-19.json")
+    data_path = os.environ.get("NEWS_DATA_PATH", "../data/" + topic + ".json")
     articles = load_data(data_path)
     articles = extract_scores(articles)
+
+    store_scores(articles, topic);
+
