@@ -182,6 +182,7 @@
 
   <script>
     let hoveredNews = null;
+	let selectedNews = null;
     let loaded = false;
     let data = undefined;
 
@@ -217,7 +218,8 @@
 
       columnColor = "rgba(242, 100, 25, 0.7)";
       columnColorBorder = "rgba(242, 100, 25, 1.0)";
-      columnColorSelected = "rgba(242, 100, 25, 0.8)";
+	  columnColorSelected = "rgba(242, 100, 25, 1.0)";
+      columnColorHovered = "rgba(242, 100, 25, 0.8)";
       columnCornerAngle = 1;
 
       backgroundColor = "rgba(51, 101, 138, 1)";
@@ -300,13 +302,18 @@
     function drawRect(x1, y1, width, height, news) {
       let hovered = false;
       if ((x1 < mouseX) && (x1 + width > mouseX) && (y1 > mouseY) && (y1 + height < mouseY)) {
-        fill(columnColorSelected)
+        fill(columnColorHovered)
         hoveredNews = news;
         hovered = true;
       } else {
         fill(columnColor);
         hovered = false;
       }
+	  
+	  if(selectedNews !== null && selectedNews["id"] === news["id"]) {
+		fill(columnColorSelected);
+	  }
+	  
       stroke(columnColorBorder);
       rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
       stroke(chartColour);
@@ -320,6 +327,7 @@
 
     function mouseClicked() {
       if (hoveredNews !== null) {
+	  selectedNews = hoveredNews;
         document.getElementById("hovered-article").innerHTML = hoveredNews["title"];
         document.getElementById("hovered-article-content").innerHTML = hoveredNews["content"].substring(0, 280) + "...";
         document.getElementById("hovered-article-link").innerHTML = "Vir: <a target='_blank' href='" + hoveredNews["link"] +"'>" + hoveredNews["link"].split("/")[2] + "</a>";
