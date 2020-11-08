@@ -205,7 +205,8 @@
     }
 
     function setup() {
-      let canvas = createCanvas(800, 300);
+	  let content = select('.content');
+      let canvas = createCanvas(content.width*0.9, 300);
       canvas.parent('canvas-holder');
 
       xAxisY = height - 40;
@@ -326,6 +327,11 @@
         document.getElementById("hovered-article-link").innerHTML = "";*/
       }
     }
+	
+	function windowResized() {
+		let content = select('.content');
+		resizeCanvas(content.width*0.9, 300);
+	}
   </script>
 
 </body>
