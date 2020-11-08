@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
     for curr_topic, arts in groups.items():
         print(f"TOPIC {curr_topic}")
-        articles = extract_scores_ngrams(arts)
-        # articles = extract_scores_word2vec(arts, w2v_embs)
+        # articles = extract_scores_ngrams(arts)
+        articles = extract_scores_word2vec(arts, w2v_embs)
         store_scores(articles)
 
