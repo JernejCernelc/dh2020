@@ -127,6 +127,12 @@
       color: white;
       background-color: #2F4858;
     }
+
+    .topics-buttons > span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
   </style>
 
   <!-- Background -->
@@ -154,6 +160,9 @@
       <br />
       <br />
       Save your time and energy, but stay on top of relevant topics of yesterday, today and tomorrow!
+      <p class="topics-buttons">
+      Popular topics: <span onclick="changeTopic('covid-19')">Covid-19</span>, <span onclick="changeTopic('us-election-20')">US Election 2020</span>
+      </p>
     </div>
 
     <div class="topic-label-container"><span id="topic-label">...</span></div>
@@ -174,15 +183,24 @@
     let loaded = false;
     let data = undefined;
 
-    async function preload() {
+
+    function changeTopic(topic) {
+      loadTopic(topic);
+    }
+
+    async function loadTopic(topic) {
       try {
-        const response = await axios.get('/timeline/us-election-20');
+        const response = await axios.get('/timeline/' + topic);
         console.log(response);
         data = response.data;
         document.getElementById("topic-label").innerHTML = response.data.topic;
       } catch (error) {
         console.error(error);
       }
+    }
+
+    async function preload() {
+      await loadTopic('covid-19');
       loaded = true;
     }
 
