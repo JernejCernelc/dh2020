@@ -244,6 +244,22 @@
       for (i = 0; i < dates.length; i++) {
         numberOfNews += dates[i]["news"].length;
       }
+	  
+	  let min = 1.0;
+	  let max = 0.0;
+	  //get min and max
+	  for(i = 0; i < dates.length; i++) {
+		for (j = 0; j < dates[i]["news"].length; j++) {
+			let value = dates[i]["news"][j]["score"];
+			if(value < min) {
+				min = value;
+			}
+			if(value > max) {
+				max = value;
+			}
+		}
+	  }
+	  
       var start = 0;
       let hovered = false;
       for (i = 0; i < dates.length; i++) {
@@ -275,10 +291,10 @@
           let value = news["score"];
           let title = news["title"];
 
-          value = map(value, 0, 1, 0, xAxisY);
+          value = map(value, min-0.005, max+0.005, 0, xAxisY);
           let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
 
-          if (news["score"] > 0.5) {
+          if (news["score"] > min+((max-min)/2)) {
             strokeWeight(0.5);
             stroke(textColor);
             fill(textColor);
