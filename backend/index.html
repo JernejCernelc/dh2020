@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
@@ -13,7 +14,8 @@
       margin: 0px;
     }
 
-    body, html {
+    body,
+    html {
       height: 100%;
     }
 
@@ -28,10 +30,10 @@
       width: 100%;
       height: 369px;
       background:
-      linear-gradient(135deg, white 25%, transparent 25%) -50px 0,
-      linear-gradient(225deg, white 25%, transparent 25%) -50px 0,
-      linear-gradient(315deg, white 25%, transparent 25%),
-      linear-gradient(45deg, white 25%, transparent 25%);
+        linear-gradient(135deg, white 25%, transparent 25%) -50px 0,
+        linear-gradient(225deg, white 25%, transparent 25%) -50px 0,
+        linear-gradient(315deg, white 25%, transparent 25%),
+        linear-gradient(45deg, white 25%, transparent 25%);
       background-size: 2em 2em;
       background-color: #86bbd8;
     }
@@ -73,13 +75,14 @@
       display: inline-block;
       align-items: center;
       text-align: center;
-      font-size: 1em;
+      font-size: 1.3em;
       font-family: 'Merriweather', sans-serif;
       color: white;
       line-height: 30px;
     }
 
     .graphs {
+      position: relative;
       margin: 0px 150px;
       margin-bottom: 24px;
       display: flex;
@@ -96,7 +99,6 @@
     .article-details #hovered-article {
       font-size: 1.3em;
       margin-bottom: 8px;
-      text-decoration: underline;
     }
 
     .article-details #hovered-article-content {
@@ -104,20 +106,21 @@
       text-align: justify;
     }
 
-    .article-details #hovered-article-link{
+    .article-details #hovered-article-link {
       text-align: right;
     }
 
-    .article-details #hovered-article-link > a {
+    .article-details #hovered-article-link>a {
       color: rgb(242, 100, 25);
     }
 
     .topic-label-container {
       margin-left: 60px;
       font-family: 'Merriweather', sans-serif;
+      margin-bottom: 20px;
     }
 
-    .topic-label-container > span {
+    .topic-label-container>span {
       text-transform: uppercase;
       display: inline-block;
       padding: 4px 8px;
@@ -127,14 +130,35 @@
       background-color: #2F4858;
     }
 
-    .topics-buttons > span:hover {
+    .topics-buttons {
+      font-size: 1em;
+      display: inline-block;
+      align-items: center;
+      text-align: center;
+      font-family: 'Merriweather', sans-serif;
+      color: white;
+      line-height: 30px;
+    }
+
+    .topics-buttons>span:hover {
       text-decoration: underline;
     }
 
-    .topics-buttons > span {
+    .topics-buttons>span {
       cursor: pointer;
+      color:rgb(242, 100, 25);
     }
 
+    #title-popup {
+      max-width: 177px;
+      border-radius: 9px;
+      color: white;
+      padding: 10px 20px;
+      background-color: #2f4858ad;
+      position: absolute;
+      -webkit-user-select: none;
+      ;
+    }
   </style>
 
   <!-- Background -->
@@ -162,13 +186,18 @@
       <br />
       <br />
       Save your time and energy, but stay on top of relevant topics of yesterday, today and tomorrow!
-      <p class="topics-buttons">
-      Popular topics: <span onclick="changeTopic('covid-19')">Covid-19</span>, <span onclick="changeTopic('us-election-20')">US Election 2020</span>
-      </p>
     </div>
+
+    <p class="topics-buttons">
+      Popular topics: <span onclick="changeTopic('covid-19')">Covid-19</span>, <span
+        onclick="changeTopic('us-election-20')">US Election 2020</span>
+    </p>
 
     <div class="topic-label-container"><span id="topic-label">...</span></div>
     <div class="graphs" id="canvas-holder">
+
+      <!-- Tile popup for on hover -->
+      <div id="title-popup"></div>
 
     </div>
     <div class="article-details">
@@ -182,10 +211,10 @@
 
   <script>
     let hoveredNews = null;
-	let selectedNews = null;
+    let selectedNews = null;
     let loaded = false;
     let data = undefined;
-
+    let hoveredOverElement = false;
 
     function changeTopic(topic) {
       loadTopic(topic);
@@ -208,8 +237,8 @@
     }
 
     function setup() {
-	  let content = select('.content');
-      let canvas = createCanvas(content.width*0.9, 300);
+      let content = select('.content');
+      let canvas = createCanvas(content.width * 0.9, 300);
       canvas.parent('canvas-holder');
 
       xAxisY = height - 40;
@@ -218,11 +247,11 @@
 
       columnColor = "rgba(242, 100, 25, 0.7)";
       columnColorBorder = "rgba(242, 100, 25, 1.0)";
-	  columnColorSelected = "rgba(242, 100, 25, 1.0)";
+      columnColorSelected = "rgba(242, 100, 25, 1.0)";
       columnColorHovered = "rgba(242, 100, 25, 0.8)";
       columnCornerAngle = 1;
 
-      backgroundColor = "rgba(51, 101, 138, 1)";
+      backgroundColor = "#33658A";
       textColor = 255;
 
       chartColour = "rgba(47, 72, 88, 1)";
@@ -233,6 +262,7 @@
       if (!loaded) {
         return; // LOADING BAR???
       }
+
       background(backgroundColor);
       strokeWeight(strokeW);
       stroke(chartColour);
@@ -269,7 +299,11 @@
         var columnWidth = (width / numberOfNews) * colWidth;
         var numberOfColumns = dates[i]["news"].length;
 
-        //draw data
+        if (!hovered) {
+          hidePopup()
+        }
+
+        // Draw data
         for (j = 0; j < dates[i]["news"].length; j++) {
           let news = dates[i]["news"][j];
           let value = news["score"];
@@ -278,17 +312,13 @@
           value = map(value, 0, 1, 0, xAxisY);
           let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
 
-          if (news["score"] > 0.5) {
-            strokeWeight(0.5);
-            stroke(textColor);
-            fill(textColor);
-            text(news["title"].substring(0, 36) + "...", colX, xAxisY - value - 6); // <--
-            stroke(chartColour);
-            fill(chartColour);
-            strokeWeight(strokeW);
+          var isElementHovered = drawRect(colX, xAxisY, columnWidth, -value, news);
+
+          if (isElementHovered) {
+            showPopup(mouseX, mouseY, news["title"], news["score"])
           }
 
-          hovered = drawRect(colX, xAxisY, columnWidth, -value, news) || hovered;
+          hovered = isElementHovered || hovered;
         }
 
         start = end;
@@ -300,25 +330,39 @@
     }
 
     function drawRect(x1, y1, width, height, news) {
-      let hovered = false;
+      var hovered = false
       if ((x1 < mouseX) && (x1 + width > mouseX) && (y1 > mouseY) && (y1 + height < mouseY)) {
         fill(columnColorHovered)
         hoveredNews = news;
         hovered = true;
       } else {
         fill(columnColor);
-        hovered = false;
+        hoveredOvehoveredrElement = false;
       }
-	  
-	  if(selectedNews !== null && selectedNews["id"] === news["id"]) {
-		fill(columnColorSelected);
-	  }
-	  
+
+      if (selectedNews !== null && selectedNews["id"] === news["id"]) {
+        fill(columnColorSelected);
+      }
+
       stroke(columnColorBorder);
       rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
       stroke(chartColour);
       fill(chartColour);
+
       return hovered;
+    }
+
+    function hidePopup() {
+      var popup = document.getElementById('title-popup');
+      popup.style.display = 'none';
+    }
+
+    function showPopup(x, y, title, score) {
+      var popup = document.getElementById('title-popup');
+      popup.style.display = null;
+      popup.style.left = Math.ceil(x) + 'px';
+      popup.style.top = Math.ceil(y) + 'px';
+      popup.innerHTML = '<b>Score: </b>' + score.toFixed(2) + '</br>' + title;
     }
 
     function mouseMoved() {
@@ -327,22 +371,19 @@
 
     function mouseClicked() {
       if (hoveredNews !== null) {
-	  selectedNews = hoveredNews;
+        selectedNews = hoveredNews;
         document.getElementById("hovered-article").innerHTML = hoveredNews["title"];
         document.getElementById("hovered-article-content").innerHTML = hoveredNews["content"].substring(0, 280) + "...";
-        document.getElementById("hovered-article-link").innerHTML = "Vir: <a target='_blank' href='" + hoveredNews["link"] +"'>" + hoveredNews["link"].split("/")[2] + "</a>";
-      } else {
-        /*document.getElementById("hovered-article").innerHTML = "...";
-        document.getElementById("hovered-article-content").innerHTML = "...";
-        document.getElementById("hovered-article-link").innerHTML = "";*/
+        document.getElementById("hovered-article-link").innerHTML = "Vir: <a target='_blank' href='" + hoveredNews["link"] + "'>" + hoveredNews["link"].split("/")[2] + "</a>";
       }
     }
 
-	function windowResized() {
-		let content = select('.content');
-		resizeCanvas(content.width*0.9, 300);
-	}
+    function windowResized() {
+      let content = select('.content');
+      resizeCanvas(content.width * 0.9, 300);
+    }
   </script>
 
 </body>
+
 </html>
