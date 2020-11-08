@@ -146,7 +146,7 @@
 
     .topics-buttons>span {
       cursor: pointer;
-      color:rgb(242, 100, 25);
+      color:rgb(233, 135, 83);
     }
 
     #title-popup {
@@ -189,8 +189,11 @@
     </div>
 
     <p class="topics-buttons">
-      Popular topics: <span onclick="changeTopic('covid-19')">Covid-19</span>, <span
-        onclick="changeTopic('us-election-20')">US Election 2020</span>
+      Popular topics: <span onclick="changeTopic('covid-19')">Covid-19</span>,
+      <span onclick="changeTopic('us-election-20')">US Election 2020</span>,
+      <span onclick="changeTopic('la-vuelta')">La Vuelta</span>,
+      <span onclick="changeTopic('')">Teroristični napadi v evropi</span>,
+      <span onclick="changeTopic('')">11. krog prve lige</span>
     </p>
 
     <div class="topic-label-container"><span id="topic-label">...</span></div>
@@ -274,7 +277,7 @@
       for (i = 0; i < dates.length; i++) {
         numberOfNews += dates[i]["news"].length;
       }
-	  
+
 	  let min = 1.0;
 	  let max = 0.0;
 	  //get min and max
@@ -289,7 +292,7 @@
 			}
 		}
 	  }
-	  
+
       var start = 0;
       let hovered = false;
       for (i = 0; i < dates.length; i++) {
@@ -325,7 +328,7 @@
           let value = news["score"];
           let title = news["title"];
 
-          value = map(value, min-0.005, max+0.005, 0, xAxisY);
+          value = map(value, min-0.1, max+0.1, 0, xAxisY);
           let colX = start + j * (cellWidth / numberOfColumns) + (cellWidth / numberOfColumns) / 2 - columnWidth / 2;
 
           var isElementHovered = drawRect(colX, xAxisY, columnWidth, -value, news);
@@ -356,9 +359,9 @@
         hoveredOvehoveredrElement = false;
       }
 
-      if (selectedNews !== null && selectedNews["id"] === news["id"]) {
-        fill(columnColorSelected);
-      }
+	  if(selectedNews !== null && selectedNews["id"] === news["id"]) {
+		fill(columnColorSelected);
+	  }
 
       stroke(columnColorBorder);
       rect(x1, y1, width, height, 0, 0, columnCornerAngle, columnCornerAngle);
@@ -398,7 +401,7 @@
       let content = select('.content');
       resizeCanvas(content.width * 0.9, 300);
     }
-	
+
 	function linedash(x1, y1, x2, y2, delta, style = '-') {
   let distance = dist(x1,y1,x2,y2);
   let dashNumber = distance/delta;
