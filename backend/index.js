@@ -47,12 +47,15 @@ async function findArticlesForTopic(myTopic) {
             topic: {
                 [Op.eq]: myTopic
             }
-        }
+        },
+        order: [
+          ['datetime', 'ASC'],
+        ],
     });
 
     // Group articles by day
     const articlesByDate = _.groupBy(articles, (article) =>
-        `${article.datetime.getDate()}/${article.datetime.getMonth()}/${article.datetime.getFullYear()}`
+        `${article.datetime.getDate()}/${article.datetime.getMonth()+1}/${article.datetime.getFullYear()}`
     )
 
     // Sort dates
